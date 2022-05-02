@@ -17,16 +17,16 @@ func _process(delta):   # update
 		get_tree().quit()
 
 	elif Input.is_action_just_pressed("move_forward"):
-		move_vec += Vector3.FORWARD
-		
+		move_vec -= Vector3.FORWARD
+	
 	elif Input.is_action_just_pressed("move_backward"):
-		move_vec += Vector3.BACK
+		move_vec -= Vector3.BACK
 		
 	elif Input.is_action_just_pressed("move_left"):
-		move_vec += Vector3.LEFT
+		move_vec -= Vector3.LEFT
 		
 	elif Input.is_action_just_pressed("move_right"):
-		move_vec += Vector3.RIGHT
+		move_vec -= Vector3.RIGHT
 	
 	elif Input.is_action_just_pressed("jump"):
 		move_vec += Vector3.UP
@@ -42,5 +42,5 @@ func _process(delta):   # update
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotation_degrees.y  -= mouse_sens * event.relative.x
-		rotation_degrees.x  -= mouse_sens * event.relative.y
-		
+		camera.rotation_degrees.x -= mouse_sens * event.relative.y
+		camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -90, 90)
