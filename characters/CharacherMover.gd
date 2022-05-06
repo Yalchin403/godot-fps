@@ -5,7 +5,7 @@ var body_to_move : KinematicBody = null
 export var move_accel = 4
 export var max_speed = 25
 var drag = 0.0
-export var jump_force = 0
+export var jump_force = 20
 export var gravity = 60
 
 var pressed_jump = false
@@ -19,6 +19,13 @@ export var ignore_rotation = false
 # helps us to pass information to other nodes
 signal movement_info
 var frozen = false
+
+
+"""
+_init is more for class initialisation and it is called when the class is
+reated, but _ready is called when the node is ready, that means when its
+children are ready. 
+"""
 
 func _ready():
 	drag = float(move_accel) / max_speed
@@ -42,8 +49,8 @@ func _physics_process(delta):
 		
 	var cur_move_vec = move_vec
 	
-#	if !ignore_rotation:
-#		cur_move_vec = cur_move_vec.rotated(Vector3.UP, body_to_move.rotation)
+	if !ignore_rotation:
+		cur_move_vec = cur_move_vec.rotated(Vector3.UP, body_to_move.rotation.y)
 
 	
 	velocity += move_accel * cur_move_vec - velocity * Vector3(drag, 0, drag) + gravity * Vector3.DOWN * delta

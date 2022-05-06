@@ -1,24 +1,39 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://characters/CharacherMover.gd" type="Script" id=2]
+[ext_resource path="res://characters/HealthManager.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
+height = 1.0059
 
 [node name="Player" type="KinematicBody"]
 transform = Transform( -0.0307654, 0, 0.999527, 0, 1, 0, -0.999527, 0, -0.0307654, -73.4043, -0.781036, 36.0079 )
-collision_layer = 2
+collision_layer = 6
 collision_mask = 3
 script = ExtResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -0.977739, 0.0986516, -0.185183, 0.0829793, 0.992427, 0.0905717, 0.192716, 0.0731891, -0.978521, 0.0969772, 0.806291, 0.131401 )
+current = true
 
 [node name="CharacherMover" type="Spatial" parent="."]
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -0.964626, 0.180993, 0.191671, 0.169708, -0.130034, 0.976878, 0.201732, 0.97485, 0.0947187, -3.8147e-06, 0, 0 )
+transform = Transform( -0.816758, 0.543444, 0.193842, 0.11882, -0.170336, 0.978196, 0.564613, 0.821982, 0.0745511, 0.0319786, 0, -0.0389023 )
 shape = SubResource( 1 )
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( -0.977739, 0.0986516, -0.185184, 0.0829793, 0.992427, 0.0905718, 0.192716, 0.0731891, -0.978521, 0.096981, 0.806291, 0.131401 )
-current = true
+[node name="HealthManager" type="Spatial" parent="."]
+script = ExtResource( 3 )
+
+[node name="test_hurt" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="test_heal" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="test_hurt" to="." method="hurt" binds= [ 30, Vector3( 0, 0, 0 ) ]]
+[connection signal="timeout" from="test_heal" to="." method="heal" binds= [ 10 ]]
