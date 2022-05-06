@@ -1,8 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://characters/CharacherMover.gd" type="Script" id=2]
 [ext_resource path="res://characters/HealthManager.gd" type="Script" id=3]
+[ext_resource path="res://Player/WeaponManager.gd" type="Script" id=4]
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="SphereMesh" id=3]
+
+[sub_resource type="CylinderMesh" id=4]
+
+[sub_resource type="PrismMesh" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -15,8 +24,38 @@ collision_mask = 3
 script = ExtResource( 1 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -0.977739, 0.0986516, -0.185183, 0.0829793, 0.992427, 0.0905717, 0.192716, 0.0731891, -0.978521, 0.0969772, 0.806291, 0.131401 )
+transform = Transform( -0.977739, 0.0986516, -0.185183, 0.0829793, 0.992427, 0.0905716, 0.192716, 0.0731891, -0.978521, 0.242714, 0.911899, 0.0916443 )
 current = true
+
+[node name="WeaponManager" type="Spatial" parent="Camera"]
+transform = Transform( -0.97774, 0.0829793, 0.192716, 0.0986517, 0.992427, 0.0731891, -0.185184, 0.0905717, -0.978522, 0.143978, -0.935645, 0.0520325 )
+script = ExtResource( 4 )
+
+[node name="Weapons" type="Spatial" parent="Camera/WeaponManager"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.832764, 0.542619, 0.649635 )
+
+[node name="Machete" type="MeshInstance" parent="Camera/WeaponManager/Weapons"]
+transform = Transform( 1, 0, 0, 0, 0.997898, -0.064811, 0, 0.0648108, 0.997896, 2.87915, -1.88675, 6.29074 )
+visible = false
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="MachineGun" type="MeshInstance" parent="Camera/WeaponManager/Weapons"]
+transform = Transform( 1, 0, 0, 0, 0.997898, -0.064811, 0, 0.0648108, 0.997896, 2.87915, -1.88675, 6.29074 )
+visible = false
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Shotgun" type="MeshInstance" parent="Camera/WeaponManager/Weapons"]
+transform = Transform( 1, 0, 0, 0, 0.997898, -0.064811, 0, 0.0648108, 0.997896, 2.87915, -1.88675, 6.29074 )
+visible = false
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="RocketLauncher" type="MeshInstance" parent="Camera/WeaponManager/Weapons"]
+transform = Transform( 1, 6.0536e-09, 1.86265e-08, -5.32907e-15, 0.997898, -0.064811, 0, 0.0648106, 0.997894, -0.455456, -0.0791187, 3.35066 )
+mesh = SubResource( 5 )
+material/0 = null
 
 [node name="CharacherMover" type="Spatial" parent="."]
 script = ExtResource( 2 )
@@ -30,10 +69,8 @@ script = ExtResource( 3 )
 
 [node name="test_hurt" type="Timer" parent="."]
 wait_time = 3.0
-autostart = true
 
 [node name="test_heal" type="Timer" parent="."]
-autostart = true
 
 [connection signal="timeout" from="test_hurt" to="." method="hurt" binds= [ 30, Vector3( 0, 0, 0 ) ]]
 [connection signal="timeout" from="test_heal" to="." method="heal" binds= [ 10 ]]

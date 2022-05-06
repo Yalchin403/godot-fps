@@ -5,6 +5,7 @@ export var mouse_sens = 0.5
 onready var camera = $Camera  # it will wait before loading camera
 onready var character_mover = $CharacherMover
 onready var health_manager = $HealthManager
+onready var weapon_manager = $Camera/WeaponManager
 
 var move_vec = Vector3()
 var is_dead = false
@@ -14,6 +15,7 @@ func _ready():
 #	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	character_mover.init(self)
 	health_manager.init()
+#	weapon_manager.init()
 	health_manager.connect("dead", self, "kill")  # whenever we get dead signal, we kill
 		
 func _process(delta):   # update
@@ -30,7 +32,6 @@ func _process(delta):   # update
 
 	elif Input.is_action_just_pressed("move_forward"): # make it is_action_pressed if you want to move constantly
 		move_vec -= Vector3.FORWARD
-		print("Pressed")
 	
 	elif Input.is_action_just_pressed("move_backward"):
 		move_vec -= Vector3.BACK
