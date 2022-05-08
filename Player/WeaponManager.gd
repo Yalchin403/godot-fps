@@ -20,18 +20,20 @@ func _ready():
 
 func switch_to_next_weapon():
 	cur_slot = (cur_slot + 1) % slots_unlocked.size()
-	if !cur_slot:
-		switch_to_next_weapon()
-	
-	else:
-		switch_to_weapon_slot(cur_slot) 
-	
-	
-func switch_to_last_weapon():
-#	cur_slot = (cur_slot - 1) % slots_unlocked.size()
-	cur_slot = slots_unlocked.size() - 1
+	print(cur_slot)
+#	if !cur_slot:
+#		switch_to_next_weapon()
+#
+#	else:
+	switch_to_weapon_slot(cur_slot) 
 	
 	
+func switch_to_previous_weapon():
+	cur_slot = posmod((cur_slot - 1), slots_unlocked.size())
+#	cur_slot = (cur_slot - 1) % slots_unlocked.size()  # this will result negative numbers too, so use posmod
+	print(cur_slot)
+	
+	switch_to_weapon_slot(cur_slot)
 
 func switch_to_weapon_slot(slot_index):
 	if slot_index < 0 or slot_index >= slots_unlocked.size():
