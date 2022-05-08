@@ -1,12 +1,13 @@
 extends Spatial
 
 
-enum WEAPON_SLOTS {MACHETE, MACHINE_GUN, SHOTGUN, ROCKET_LAUNCHER}
+enum WEAPON_SLOTS {MACHETE, MACHINE_GUN, SHOTGUN, ROCKET_LAUNCHER, NEW_GUN}
 var slots_unlocked = {
 	WEAPON_SLOTS.MACHETE: true,
 	WEAPON_SLOTS.MACHINE_GUN: true,
 	WEAPON_SLOTS.SHOTGUN: true,
 	WEAPON_SLOTS.ROCKET_LAUNCHER: true,
+	WEAPON_SLOTS.NEW_GUN: false
 }
 
 onready var weapons = $Weapons.get_children()
@@ -20,7 +21,6 @@ func _ready():
 
 func switch_to_next_weapon():
 	cur_slot = (cur_slot + 1) % slots_unlocked.size()
-	print(cur_slot)
 #	if !cur_slot:
 #		switch_to_next_weapon()
 #
@@ -31,7 +31,6 @@ func switch_to_next_weapon():
 func switch_to_previous_weapon():
 	cur_slot = posmod((cur_slot - 1), slots_unlocked.size())
 #	cur_slot = (cur_slot - 1) % slots_unlocked.size()  # this will result negative numbers too, so use posmod
-	print(cur_slot)
 	
 	switch_to_weapon_slot(cur_slot)
 
@@ -61,3 +60,15 @@ func disable_all_weapons():
 		
 		else:
 			weapon.hide()
+			
+
+func unlock_weapon_slot(slot_index):
+	if slot_index < 0 or slot_index >= slots_unlocked.size():
+		return
+	
+	else:
+		slots_unlocked[slot_index] = true
+		print(slot_index, ' ', slots_unlocked)
+		
+		# for now make it false again just not to confuse our weapon switcher
+		slots_unlocked[slot_index] = false  # remove this line in the future

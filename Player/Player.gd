@@ -93,3 +93,7 @@ func heal(amount):
 func kill():
 	is_dead = true
 	character_mover.freeze()
+
+
+func unlock_weapon_slot(extra_arg_0):
+	weapon_manager.unlock_weapon_slot(extra_arg_0)
