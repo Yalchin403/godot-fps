@@ -68,7 +68,7 @@ func unlock_weapon_slot(slot_index):
 	
 	else:
 		slots_unlocked[slot_index] = true
-		print(slot_index, ' ', slots_unlocked)
+#		print(slot_index, ' ', slots_unlocked)
 		
 		# for now make it false again just not to confuse our weapon switcher
 		slots_unlocked[slot_index] = false  # remove this line in the future

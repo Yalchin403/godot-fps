@@ -23,7 +23,7 @@ var hotkeys = {
 }
 
 func _ready():
-#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	character_mover.init(self)
 	health_manager.init()
 #	weapon_manager.init()
