@@ -41,7 +41,7 @@ func _process(delta):   # update
 		# you can freeze the player, by returning nothing, quiting game and freezing the character_mover
 		
 
-	elif Input.is_action_just_pressed("move_forward"): # make it is_action_pressed if you want to move constantly
+	elif Input.is_action_pressed("move_forward"): # make it is_action_pressed if you want to move constantly (was originally is_action_just_pressed
 		move_vec -= Vector3.FORWARD
 	
 	elif Input.is_action_just_pressed("move_backward"):
@@ -97,3 +97,4 @@ func kill():
 
 func unlock_weapon_slot(extra_arg_0):
 	weapon_manager.unlock_weapon_slot(extra_arg_0)
+

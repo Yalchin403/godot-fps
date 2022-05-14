@@ -7,7 +7,6 @@ var slots_unlocked = {
 	WEAPON_SLOTS.MACHINE_GUN: true,
 	WEAPON_SLOTS.SHOTGUN: true,
 	WEAPON_SLOTS.ROCKET_LAUNCHER: true,
-	WEAPON_SLOTS.NEW_GUN: false
 }
 
 onready var weapons = $Weapons.get_children()
@@ -72,3 +71,9 @@ func unlock_weapon_slot(slot_index):
 		
 		# for now make it false again just not to confuse our weapon switcher
 		slots_unlocked[slot_index] = false  # remove this line in the future
+
+
+# test animations of functions
+func animate_weapon():
+	for weapon in weapons:
+		weapon.get_node("AnimationPlayer").play("attack")
