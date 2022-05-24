@@ -295,7 +295,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=12]
 resource_name = "attack"
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("rocketlauncher:translation")
 tracks/0/interp = 1
@@ -365,7 +364,7 @@ visible = false
 transform = Transform( 1, 0, 0, 0, 0.999999, 1.3024e-08, 0, -1.3024e-08, 1, 0, 0, 0 )
 
 [node name="machete" parent="Camera/WeaponManager/Weapons/Machete/Graphics" instance=ExtResource( 7 )]
-transform = Transform( 0.0916947, -0.035925, -0.215767, -0.0457215, 0.180637, -0.065709, 0.216972, 0.0532473, 0.0773388, -3.65, 2.5, -6.60001 )
+transform = Transform( 0.0916949, -0.0359248, -0.215767, -0.0457218, 0.180637, -0.065709, 0.216972, 0.0532473, 0.077339, -3.65, 2.5, -6.60001 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/WeaponManager/Weapons/Machete"]
 root_node = NodePath("../Graphics/machete")
@@ -378,10 +377,9 @@ transform = Transform( 1, 0, 0, 0, 0.997898, -0.064811, 0, 0.0648108, 0.997896, 
 visible = false
 
 [node name="Graphics" type="Spatial" parent="Camera/WeaponManager/Weapons/MachineGun"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="machinegun" parent="Camera/WeaponManager/Weapons/MachineGun/Graphics" instance=ExtResource( 6 )]
-transform = Transform( -1, 4.30112e-08, 1.49727e-07, 2.32831e-08, 0.991591, -0.12935, -1.54033e-07, -0.129349, -0.991599, -3.86924, 0.666214, -5.89736 )
+transform = Transform( -1, 1.21721e-08, -8.66883e-08, 2.3283e-08, 0.991591, -0.12935, 8.43856e-08, -0.129349, -0.991599, -3.86924, 0.666214, -5.89736 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/WeaponManager/Weapons/MachineGun"]
 root_node = NodePath("../Graphics")
@@ -409,20 +407,18 @@ anims/idle = SubResource( 10 )
 transform = Transform( 1, 6.0536e-09, 1.86265e-08, -5.32907e-15, 0.997898, -0.064811, 0, 0.0648106, 0.997894, -0.455456, -0.0791187, 3.35066 )
 
 [node name="Graphics" type="Spatial" parent="Camera/WeaponManager/Weapons/RocketLauncher"]
-transform = Transform( 1, -1.15305e-16, 5.58794e-09, 0, 1, 2.06346e-08, -5.58794e-09, -2.06346e-08, 1, 0, 0, 0 )
+transform = Transform( 1, -1.15305e-16, 5.58793e-09, 0, 1, 2.06347e-08, -5.58793e-09, -2.06347e-08, 1, 0, 0, 0 )
 
 [node name="rocketlauncher" parent="Camera/WeaponManager/Weapons/RocketLauncher/Graphics" instance=ExtResource( 8 )]
 transform = Transform( 0.898616, 0.0803969, 0.455968, -0.109625, 1.00416, 0.0389906, -0.44984, -0.0841092, 0.901368, -1.09953, -0.197994, -1.53069 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera/WeaponManager/Weapons/RocketLauncher"]
 root_node = NodePath("../Graphics")
-autoplay = "attack"
 anims/RESET = SubResource( 11 )
 anims/attack = SubResource( 12 )
 anims/idle = SubResource( 13 )
 
 [node name="test_weapon_animations" type="Timer" parent="Camera/WeaponManager"]
-autostart = true
 
 [node name="CharacherMover" type="Spatial" parent="."]
 script = ExtResource( 2 )
