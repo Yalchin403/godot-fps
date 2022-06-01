@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="SphereShape" id=1]
+radius = 3.5
+
+[node name="Area" type="Area"]
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )

@@ -26,7 +26,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	character_mover.init(self)
 	health_manager.init()
-#	weapon_manager.init()
+	weapon_manager.init($Camera/FirePoint, [self])  # player > weapon_manager.init() > weapon
 	health_manager.connect("dead", self, "kill")  # whenever we get dead signal, we kill
 		
 func _process(delta):   # update
@@ -44,19 +44,19 @@ func _process(delta):   # update
 	elif Input.is_action_pressed("move_forward"): # make it is_action_pressed if you want to move constantly (was originally is_action_just_pressed
 		move_vec -= Vector3.FORWARD
 	
-	elif Input.is_action_just_pressed("move_backward"):
+	elif Input.is_action_pressed("move_backward"):
 		move_vec -= Vector3.BACK
 		
-	elif Input.is_action_just_pressed("move_left"):
+	elif Input.is_action_pressed("move_left"):
 		move_vec -= Vector3.LEFT
 		
-	elif Input.is_action_just_pressed("move_right"):
+	elif Input.is_action_pressed("move_right"):
 		move_vec -= Vector3.RIGHT
 	
 	elif Input.is_action_just_pressed("jump"):
 		character_mover.jump()
 	
-	
+	weapon_manager.attack(Input.is_action_just_pressed("attack"), Input.is_action_pressed("attack"))
 	# set character mover
 	character_mover.set_move_vec(move_vec)
 	
@@ -84,6 +84,7 @@ func _input(event):
 				
 
 func hurt(damage, dir):
+	print("Hit")
 	health_manager.hurt(damage, dir)
 
 

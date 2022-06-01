@@ -12,23 +12,45 @@ var slots_unlocked = {
 onready var weapons = $Weapons.get_children()
 var cur_slot = 0
 var cur_weapon = null
+var fire_point : Spatial
+var bodies_to_exclude : Array = []
 
 
 func _ready():
 	pass
-	
+
+
+func init(_fire_point: Spatial, _bodies_to_exclude):
+	fire_point = _fire_point
+	bodies_to_exclude = _bodies_to_exclude
+	for weapon in weapons:
+		
+		if weapon.has_method("init"):
+			weapon.init(fire_point, bodies_to_exclude)
+			
+	switch_to_weapon_slot(WEAPON_SLOTS.MACHETE)
+
+
+func attack(attack_input_just_pressed: bool, attack_input_pressed: bool):
+	if cur_weapon.has_method("attack"):
+		cur_weapon.attack(attack_input_just_pressed, attack_input_pressed)
+
 
 func switch_to_next_weapon():
 	cur_slot = (cur_slot + 1) % slots_unlocked.size()
-#	if !cur_slot:
-#		switch_to_next_weapon()
-#
-#	else:
-	switch_to_weapon_slot(cur_slot) 
+	
+	if !slots_unlocked[cur_slot]:
+		switch_to_next_weapon()
+	else:
+		switch_to_weapon_slot(cur_slot)
 	
 	
 func switch_to_previous_weapon():
 	cur_slot = posmod((cur_slot - 1), slots_unlocked.size())
+	if !slots_unlocked[cur_slot]:
+		switch_to_previous_weapon()
+	else:
+		switch_to_weapon_slot(cur_slot)
 #	cur_slot = (cur_slot - 1) % slots_unlocked.size()  # this will result negative numbers too, so use posmod
 	
 	switch_to_weapon_slot(cur_slot)

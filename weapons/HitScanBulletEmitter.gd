@@ -3,7 +3,7 @@ extends Spatial
 # when we first load the game, we will load this asset up
 var hit_effect = preload("res://effects/BulletHitEffect.tscn")
 export var distance =  10000
-var bodies_to_exclude = []
+var bodies_to_exclude : Array = []
 var damage = 1 #  will be overrided by weapons itself by set_damage function
 
 
@@ -11,7 +11,7 @@ func set_damage(_damage: int):
 	damage = _damage
 	
 
-func set_bodie_to_exclude(_bodies_to_exclude: Array):
+func set_bodies_to_exclude(_bodies_to_exclude: Array):
 	bodies_to_exclude = _bodies_to_exclude
 	
 
