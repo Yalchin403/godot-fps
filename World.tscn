@@ -92,10 +92,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.11401, 0.30583, -20.5417 )
 shape = SubResource( 7 )
 
 [node name="Explosion" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.30218, 0, -15.2281 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.94209, 1.52347, -11.1993 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
 autostart = true
 
 [connection signal="timeout" from="Timer" to="Explosion" method="explode"]

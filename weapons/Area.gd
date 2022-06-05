@@ -5,12 +5,12 @@ export var damage = 40
 
 
 func explode():
-	$Particles2.emitting = true
 	$Particles.emitting = true
+	$Particles2.emitting = true
 	
 	var query = PhysicsShapeQueryParameters.new()
 	query.set_transform(global_transform)
-	query.set_shape($CollisionShape)
+	query.set_shape($CollisionShape.shape)
 	query.collision_mask = collision_mask
 	var space_state = get_world().get_direct_space_state()
 	var results = space_state.intersect_shape(query)
