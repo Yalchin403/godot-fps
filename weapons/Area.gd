@@ -6,7 +6,7 @@ export var damage = 40
 
 func explode():
 	$Particles.emitting = true
-	$Particles2.emitting = true
+#	$Particles2.emitting = true
 	
 	var query = PhysicsShapeQueryParameters.new()
 	query.set_transform(global_transform)

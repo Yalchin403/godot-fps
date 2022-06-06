@@ -67,13 +67,18 @@ func attack(attack_input_just_pressed: bool, attack_input_pressed: bool):
 	 
 func set_active():
 	show()
+	$Crosshair.show()
 
 
 func set_inactive():
 	anim_player.play("idle")
 	hide()
+	$Crosshair.hide()
 	
 	
 func finish_attack():
 	can_attack = true
-	
+
+
+func is_idle():
+	return !anim_player.is_playing() or anim_player.current_animation == "idle"

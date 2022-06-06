@@ -42,16 +42,16 @@ func _process(delta):   # update
 		
 
 	elif Input.is_action_pressed("move_forward"): # make it is_action_pressed if you want to move constantly (was originally is_action_just_pressed
-		move_vec -= Vector3.FORWARD
+		move_vec += Vector3.FORWARD
 	
 	elif Input.is_action_pressed("move_backward"):
-		move_vec -= Vector3.BACK
+		move_vec += Vector3.BACK
 		
 	elif Input.is_action_pressed("move_left"):
-		move_vec -= Vector3.LEFT
+		move_vec += Vector3.LEFT
 		
 	elif Input.is_action_pressed("move_right"):
-		move_vec -= Vector3.RIGHT
+		move_vec += Vector3.RIGHT
 	
 	elif Input.is_action_just_pressed("jump"):
 		character_mover.jump()
@@ -78,10 +78,11 @@ func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == BUTTON_WHEEL_DOWN:
 			weapon_manager.switch_to_next_weapon()
-		
+
+
 		if event.button_index == BUTTON_WHEEL_UP:
 			weapon_manager.switch_to_previous_weapon()
-				
+
 
 func hurt(damage, dir):
 	print("Hit")
@@ -90,6 +91,7 @@ func hurt(damage, dir):
 
 func heal(amount):
 	health_manager.heal(amount)
+
 
 func kill():
 	is_dead = true

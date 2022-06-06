@@ -9,6 +9,7 @@ var slots_unlocked = {
 	WEAPON_SLOTS.ROCKET_LAUNCHER: true,
 }
 
+onready var anim_player = $AnimationPlayer
 onready var weapons = $Weapons.get_children()
 var cur_slot = 0
 var cur_weapon = null
@@ -99,3 +100,21 @@ func unlock_weapon_slot(slot_index):
 func animate_weapon():
 	for weapon in weapons:
 		weapon.get_node("AnimationPlayer").play("attack")
+
+
+func update_animation(velocity: Vector3, grounded: bool):
+	"""
+		first two if statements explanation:
+			first we check if we are in idle animation basically if we are not moving
+			in the second one we are checking if we are off the ground or our velocity is too slow to shake the weapons
+	
+	""" 
+	if cur_weapon.has_method("is_idle") and !cur_weapon.is_idle():
+		anim_player.play("idle", 0.05)  # 0.05 is for animation blend
+		
+	if !grounded or velocity.length() < 15.0:
+		anim_player.play("idle", 0.05)		
+
+	# otherwise we shake the guns
+	anim_player.play("moving")
+	
