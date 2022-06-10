@@ -15,6 +15,8 @@ var cur_slot = 0
 var cur_weapon = null
 var fire_point : Spatial
 var bodies_to_exclude : Array = []
+onready var alert_area_hearing = $AlertAreaHearing
+onready var alert_area_los = $AlertAreaLos
 
 
 func _ready():
@@ -28,9 +30,12 @@ func init(_fire_point: Spatial, _bodies_to_exclude):
 		
 		if weapon.has_method("init"):
 			weapon.init(fire_point, bodies_to_exclude)
-			
+	
 	switch_to_weapon_slot(WEAPON_SLOTS.MACHETE)
-
+	weapons[WEAPON_SLOTS.MACHINE_GUN].connect("fired", self, "alert_nearby_enemies")
+	weapons[WEAPON_SLOTS.SHOTGUN].connect("fired", self, "alert_nearby_enemies")
+	weapons[WEAPON_SLOTS.ROCKET_LAUNCHER].connect("fired", self, "alert_nearby_enemies")
+	
 
 func attack(attack_input_just_pressed: bool, attack_input_pressed: bool):
 	if cur_weapon.has_method("attack"):
@@ -118,3 +123,15 @@ func update_animation(velocity: Vector3, grounded: bool):
 	# otherwise we shake the guns
 	anim_player.play("moving")
 	
+
+func alert_nearby_enemies():
+	var nearby_enemies = alert_area_los.get_overlapping_bodies()
+	for nearby_enemy in nearby_enemies:
+		if nearby_enemy.has_method("alert"):
+			nearby_enemy.alert()
+			
+	nearby_enemies = alert_area_hearing.get_overlapping_bodies()
+	for nearby_enemy in nearby_enemies:
+		if nearby_enemy.has_method("alert"):
+			nearby_enemy.alert(false)
+			

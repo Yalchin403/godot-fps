@@ -19,7 +19,7 @@ func fire():
 	var space_state = get_world().get_direct_space_state()
 	var our_pos = global_transform.origin
 	var result = space_state.intersect_ray(our_pos, our_pos - global_transform.basis.z * distance,
-	bodies_to_exclude, 1 + 2 + 4, true,
+	bodies_to_exclude, 1 + 4, true,
 	true)  # 2 + 4 comes from the Player layers, those are the layers to interact
 	
 	if result and result.collider.has_method("hurt"):
