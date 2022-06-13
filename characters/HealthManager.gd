@@ -10,10 +10,12 @@ signal hurt
 signal healed
 signal health_changed
 signal gibbed
-
+var blood_spray = preload("res://effects/BloodSpray.tscn")
+var gibs = preload("res://effects/Gibs.tscn")
 export var max_health = 100
 var cur_health = 1
 export var gib_at = -20
+
 
 func ready():
 	init()
@@ -24,6 +26,7 @@ func init():
 	emit_signal("health_changed", cur_health)
 	
 func hurt(damage: int, dir: Vector3, damage_type="normal"):
+	spawn_blood(dir)
 	if cur_health <= 0:
 		return  # don't do anything to dead person :D
 	
@@ -32,7 +35,7 @@ func hurt(damage: int, dir: Vector3, damage_type="normal"):
 	if cur_health <= gib_at:
 		# TODO:
 		#	make gibs spawner
-		print("Player gibbed")
+		spawn_gibs()
 		emit_signal("gibbed")
 		
 	if cur_health <=0:
@@ -63,3 +66,32 @@ func heal(amount: int):
 		
 	emit_signal("health_changed", cur_health)
 	emit_signal("healed")
+
+func spawn_blood(dir):
+	var blood_spray_inst = blood_spray.instance()
+	get_tree().get_root().add_child(blood_spray_inst)
+	blood_spray_inst.global_transform.origin = global_transform.origin
+	
+	if dir.angle_to(Vector3.UP) < 0.00005:
+		# if we hit something flat
+		return # don't do anything
+	
+	if dir.angle_to(Vector3.DOWN) < 0.00005:
+		# rotate the hit instance
+		blood_spray_inst.rotate(Vector3.RIGHT, PI)
+		return
+		
+	# cross product if it is neither of 2 cases above, to find the perpendicular direction
+	var y = dir
+	var x = y.cross(Vector3.UP)
+	var z = x.cross(y) # x.cross(y) will retur cross product of the x and y which is going to be z
+	
+	blood_spray_inst.global_transform.basis = Basis(x, y, z)
+
+
+func spawn_gibs():
+	var gib_inst = gibs.instance()
+	get_tree().get_root().add_child(gib_inst)
+	gib_inst.global_transform.origin = global_transform.origin
+	
+	gib_inst.enable_gibs()

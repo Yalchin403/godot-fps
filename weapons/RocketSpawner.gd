@@ -1,7 +1,7 @@
 extends Spatial
 
 
-var rocket = preload("res://weapons/Rocket.tscn")
+var fireball = preload("res://weapons/Fireball.tscn")
 var damage = 1
 var bodies_to_exclude : Array = []
 
@@ -15,8 +15,8 @@ func set_bodies_to_exclude(_bodies_to_exclude):
 
 
 func fire():
-	var rocket_inst = rocket.instance()
-	rocket_inst.set_bodies_to_exclude(bodies_to_exclude)
-	get_tree().get_root().add_child(rocket_inst)
-	rocket_inst.global_transform = global_transform
-	rocket_inst.impact_damage = damage
+	var fireball_inst = fireball.instance()
+	fireball_inst.set_bodies_to_exclude(bodies_to_exclude)
+	get_tree().get_root().add_child(fireball_inst)
+	fireball_inst.global_transform = global_transform
+	fireball_inst.impact_damage = damage
