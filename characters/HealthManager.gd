@@ -95,3 +95,9 @@ func spawn_gibs():
 	gib_inst.global_transform.origin = global_transform.origin
 	
 	gib_inst.enable_gibs()
+
+
+func get_pickup(pickup_type, ammo):
+	match pickup_type:
+		Pickup.PICKUP_TYPES.HEALTH:
+			heal(ammo)

@@ -6,6 +6,7 @@ onready var camera = $Camera  # it will wait before loading camera
 onready var character_mover = $CharacherMover
 onready var health_manager = $HealthManager
 onready var weapon_manager = $Camera/WeaponManager
+onready var pickup_manager = $PickupManager
 
 var move_vec = Vector3()
 var is_dead = false
@@ -25,6 +26,10 @@ var hotkeys = {
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	character_mover.init(self)
+	pickup_manager.max_player_health = health_manager.max_health
+	health_manager.connect("health_changed", pickup_manager, "update_player_health")
+	pickup_manager.connect("got_pickup", weapon_manager, "get_pickup")
+	pickup_manager.connect("got_pickup", health_manager, "get_pickup")			
 	health_manager.init()
 	weapon_manager.init($Camera/FirePoint, [self])  # player > weapon_manager.init() > weapon
 	health_manager.connect("dead", self, "kill")  # whenever we get dead signal, we kill
@@ -40,7 +45,10 @@ func _process(delta):   # update
 		# any of the above line should do the trick
 		# you can freeze the player, by returning nothing, quiting game and freezing the character_mover
 		
-
+	if Input.is_action_just_pressed("restart"):
+		print("reloading the scene")
+		get_tree().reload_current_scene()
+		
 	elif Input.is_action_pressed("move_forward"): # make it is_action_pressed if you want to move constantly (was originally is_action_just_pressed
 		move_vec += Vector3.FORWARD
 	

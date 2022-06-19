@@ -46,6 +46,7 @@ func attack(attack_input_just_pressed: bool, attack_input_pressed: bool):
 		
 	if ammo == 0:
 		if attack_input_just_pressed:
+			return
 			emit_signal("out_of_ammo")
 	
 	if ammo > 0:

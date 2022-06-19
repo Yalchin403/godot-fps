@@ -60,10 +60,6 @@ shape = SubResource( 1 )
 
 [node name="Graphics" parent="." instance=ExtResource( 1 )]
 
-[node name="Skeleton" parent="Graphics/Armature" index="0"]
-bones/0/bound_children = [ NodePath("Hip") ]
-bones/1/bound_children = [ NodePath("Body") ]
-
 [node name="ArmUL" type="BoneAttachment" parent="Graphics/Armature/Skeleton" index="1"]
 transform = Transform( -0.942927, 0.311305, -0.118232, -0.330216, -0.828304, 0.452626, 0.042973, 0.465835, 0.883827, 0.233428, 1.4755, -0.0452062 )
 bone_name = "upper_arm.l"
@@ -198,7 +194,7 @@ shape = SubResource( 15 )
 
 [node name="HealthManager" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20713, 0.10514 )
-max_health = 10
+max_health = 30
 gib_at = -10
 
 [node name="CharacherMover" parent="." instance=ExtResource( 5 )]
@@ -211,6 +207,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.429911 )
 script = ExtResource( 6 )
 
 [node name="DamageArea" parent="AimAtObject" instance=ExtResource( 7 )]
-transform = Transform( 0.741029, 0, 0, 0, 0.741029, 0, 0, 0, 0.741029, 0, 0, 0.267626 )
+transform = Transform( 4.60204, 0, 0, 0, 4.60204, 0, 0, 0, 4.60204, 0, 0, 0.267626 )
 
 [editable path="Graphics"]
